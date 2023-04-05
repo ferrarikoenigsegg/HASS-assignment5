@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Interactive 3D model of a typical 4-room HDB</title>
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+	<script src="https://cdn.rawgit.com/mrdoob/three.js/r128/examples/js/loaders/OBJLoader.js"></script>
+</head>
+
+<body>
+	<div id="container"></div>
+
+	<script>
+		
+	// Initialize the scene, camera, and renderer
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		const renderer = new THREE.WebGLRenderer();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.getElementById('container').appendChild(renderer.domElement);
+
+		// Load the 3D model
+		const loader = new THREE.OBJLoader();
+		loader.load('/4 room HDB.obj', function(object) {
+		scene.add(object);
+		});
+
+		// Set the camera position and render the scene
+		camera.position.z = 5;
+		function animate() {
+		requestAnimationFrame(animate);
+		renderer.render(scene, camera);
+		}
+		animate();
+
+	</script>
+</body>
+</html>
